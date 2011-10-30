@@ -12,7 +12,7 @@ first worked 23-10-2011
 Based on htmc-test1 by xander soldaat and the NXT BT Messaging example
 */
 
-#include "drivers/HTMC-driver.h"
+#include "../drivers/HTMC-driver.h"
 
 long nLastXmitTimeStamp = nPgmTime;
 long nDeltaTime         = 0;
@@ -27,7 +27,7 @@ int mSD, mSE, mSF, mSG;
 
 
 
-int round(float f)
+int roundit(float f)
 {
   return (f>0)?(int)(f+0.5):(int)(f - 0.5);
 }
@@ -52,10 +52,10 @@ void runMotorSpeeds(int &motorSpeedD, int &motorSpeedE, int &motorSpeedF, int &m
     norm_factor = MAXMOTORSPEED / Vw4;
   }
 
-  motorSpeedD = round(Vw1 * norm_factor);
-  motorSpeedE = round(Vw2 * norm_factor);
-  motorSpeedF = round(Vw3 * norm_factor);
-  motorSpeedG = round(Vw4 * norm_factor);
+  motorSpeedD = roundit(Vw1 * norm_factor);
+  motorSpeedE = roundit(Vw2 * norm_factor);
+  motorSpeedF = roundit(Vw3 * norm_factor);
+  motorSpeedG = roundit(Vw4 * norm_factor);
 
   motor[motorD] = motorSpeedD;
   motor[motorE] = motorSpeedE;

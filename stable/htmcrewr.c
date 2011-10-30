@@ -22,7 +22,7 @@
  * version 0.2
  */
 
-#include "drivers/HTMC-driver.h"
+#include "../drivers/HTMC-driver.h"
 
 long nNearEndSent = 0;
 long nSendBusy    = 0;
