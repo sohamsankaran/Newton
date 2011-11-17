@@ -30,12 +30,12 @@ buff_t buffer;
 
 long nRcvChars = 0;
 ubyte BytesRead[8];
-ubyte ssid[] = {'x', 'a', 'm', 'm', 'y', '2'};
+ubyte ssid[] = {'b','e','l','k','i','n','.','7','1','4'};
 ubyte newline[] = {0x0D};
 ubyte linefeed[] = {0x0A};
 ubyte endmarker[] = {27, 'E'};
 ubyte wep[10] = {'0','F','B','3','B','A','7','9','E','B'};        // Space for 10 digit WEP key.
-ubyte wpa_psk[] = {'w','l','a','n','s','a','r','e','f','u','n'};
+ubyte wpa_psk[] = {'7','e','6','6','7','6','4','a'};
 //ubyte wpa_psk[] = {'w','l','a','n','s'};
 
 long baudrates[] = {9600, 19200, 38400, 57600, 115200, 230400,460800, 921600};

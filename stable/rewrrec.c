@@ -71,13 +71,20 @@ void stopMotors()
   motor[motorG] = 0;
 }
 
-void turntocmps(int lcmps){
+void turntocmps(int gcmps, int loxmps){
+
+  int lcmps;
+  if (gcmps-HTMCreadRelativeHeading(HTMC) >= 180){lcmps = (gcmps-HTMCreadRelativeHeading(HTMC)) - 360;}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) < 180 && gcmps-HTMCreadRelativeHeading(HTMC) >= 0){lcmps = gcmps-HTMCreadRelativeHeading(HTMC) ;}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) >= -180 && gcmps-HTMCreadRelativeHeading(HTMC) < 0){lcmps = gcmps-HTMCreadRelativeHeading(HTMC);}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) < -180){lcmps = 360+(gcmps-HTMCreadRelativeHeading(HTMC)) ;}
 
 
 
-  if(HTMCreadRelativeHeading(HTMC) > lcmps){
 
-    if(HTMCreadRelativeHeading(HTMC) != lcmps){
+  if(lcmps > 0){
+
+    if(HTMCreadRelativeHeading(HTMC) != loxmps){
       flagged = false;
      motor[motorD] = -15;
      motor[motorE] = 15;
@@ -91,9 +98,9 @@ void turntocmps(int lcmps){
 
   // stopMotors();
 
-   if(HTMCreadRelativeHeading(HTMC) < lcmps){
+   if(lcmps < 0){
 
-     if(HTMCreadRelativeHeading(HTMC) != lcmps){
+     if(HTMCreadRelativeHeading(HTMC) != loxmps){
      flagged = false;
      motor[motorD] = 15;
      motor[motorE] = -15;
@@ -104,7 +111,12 @@ void turntocmps(int lcmps){
 
 }
 
- if(HTMCreadRelativeHeading(HTMC)-lcmps < 5 || -HTMCreadRelativeHeading(HTMC)+lcmps < 5){
+  if (gcmps-HTMCreadRelativeHeading(HTMC) >= 180){lcmps = (gcmps-HTMCreadRelativeHeading(HTMC)) - 360;}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) < 180 && gcmps-HTMCreadRelativeHeading(HTMC) >= 0){lcmps = gcmps-HTMCreadRelativeHeading(HTMC) ;}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) >= -180 && gcmps-HTMCreadRelativeHeading(HTMC) < 0){lcmps = gcmps-HTMCreadRelativeHeading(HTMC);}
+  if (gcmps-HTMCreadRelativeHeading(HTMC) < -180){lcmps = 360+(gcmps-HTMCreadRelativeHeading(HTMC)) ;}
+
+ if(abs(loxmps-HTMCreadRelativeHeading(HTMC)) < 5){
    flagged = true;
  }
    }
@@ -169,9 +181,13 @@ void readMultipleDataMsgs()
 
 
 
-     cmps = nRcvBuffer[0]-nRcvBuffer[1];
+     cmps = 180+(nRcvBuffer[0]-nRcvBuffer[1]);
+    int oxmps;
+   if(nRcvBuffer[1] == 0){oxmps = nRcvBuffer[0];}
+   if(nRcvBuffer[0] == 0){oxmps = -nRcvBuffer[1];}
+
      nxtDisplayTextLine(3, "button:   %4d", nRcvBuffer[2]);
-     nxtDisplayTextLine(4, "Abs:   %4d", cmps);
+     nxtDisplayTextLine(4, "Abs:   %4d", oxmps);
      nxtDisplayTextLine(5, "curr:   %4d", HTMCreadRelativeHeading(HTMC));
      if(nRcvBuffer[2]==1){
        //stopMotors();
@@ -181,7 +197,7 @@ void readMultipleDataMsgs()
     // else{
     // stopMotors();
      else{
-      if (cmps-HTMCreadRelativeHeading(HTMC) > 5 || HTMCreadRelativeHeading(HTMC)-cmps > 5)
+      if (abs(oxmps-HTMCreadRelativeHeading(HTMC)) > 5)
      {
      flagged = false;
     }
@@ -196,7 +212,7 @@ void readMultipleDataMsgs()
     }
 
     else{
-      turntocmps(cmps);
+      turntocmps(cmps, oxmps);
     }
   }
   // }

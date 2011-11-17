@@ -1,0 +1,11 @@
+﻿newton - the autonomous network
+===============================
+
+The head mounted compass sensor sends its readings over bluetooth to the drive nxt on the robot, which then tries to dynamically align itself witht the head mounted compass using a compass mounted on the robot itself
+
+The nxtcam vision system uses one nxtcam to track the colour that represents the objects for our demonstration using simple mathemathical logic to eliminate any trigonometric complexiry. This formula is based on the coefficient of the distance of.
+
+The wifi sensor exposes a regular, 'at' command based wifi modem, to the 1 MBits port 4 (*RS-485) of the nxt, allowing it to broadcast the patient's information to the doctor over the internet.
+
+The ECG system, used for measuring the patient's heart rate, is based on the output three electrodes run through an instrumentation amolifier ad a low pass filter. It can be used to automatically trigger phone calls to the doctor in case of an Eemergency.
+
