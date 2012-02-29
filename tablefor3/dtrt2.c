@@ -1,4 +1,10 @@
-
+#pragma config(Hubs,  S1, HTServo,  HTMotor,  none,     none)
+#pragma config(Sensor, S2,     Lct,                 sensorLightActive)
+#pragma config(Motor,  motorA,          motorA,        tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  motorB,          motorB,        tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  motorC,          motorC,        tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     motorD,        tmotorNormal, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     motorE,        tmotorNormal, openLoop)
 #define HSPEED_DEBUG
 #define ALL_OK 1
 #define FAIL_TO_LOCATE 2

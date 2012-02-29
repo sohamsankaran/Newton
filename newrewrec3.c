@@ -160,8 +160,7 @@ void checkBTLinkConnected()
 
 
 
-const int kMaxSizeOfMessage = 4;
-const TMailboxIDs kQueueID = mailbox1;
+
 
 
 
@@ -173,6 +172,8 @@ const TMailboxIDs kQueueID = mailbox1;
 
 void readMultipleDataMsgs()
 {
+  const int kMaxSizeOfMessage = 4;
+const TMailboxIDs kQueueID = mailbox1;
   TFileIOResult nBTCmdRdErrorStatus;
   int nSizeOfMessage;
   ubyte nRcvBuffer[kMaxSizeOfMessage];
@@ -182,14 +183,14 @@ void readMultipleDataMsgs()
     // Check to see if a message is available
 
     nSizeOfMessage = cCmdMessageGetSize(kQueueID);
-    if (nSizeOfMessage <= 0)
+  /*  if (nSizeOfMessage <= 0)
     {
       wait1Msec(1);    // Give other tasks a chance to run
       break;           // No more message this time
     }
-
-    if (nSizeOfMessage > kMaxSizeOfMessage)
-      nSizeOfMessage = kMaxSizeOfMessage;
+*/
+    if (nSizeOfMessage > kMaxSizeOfMessage){
+      nSizeOfMessage = kMaxSizeOfMessage;}
     nBTCmdRdErrorStatus = cCmdMessageRead(nRcvBuffer, nSizeOfMessage, kQueueID);
 
 
@@ -220,7 +221,7 @@ void readMultipleDataMsgs()
             // Initialise the camera
            NXTCAMinit(cam);
            servo[servo1] = 35;
-             while(nRcvBuffer[3]==0) {
+           while(true){
               eraseDisplay();
 
               _nblobs = NXTCAMgetBlobs(cam, _blobs, _condensed);
@@ -242,13 +243,9 @@ void readMultipleDataMsgs()
                 else{*/
                     mspeed = 0;
                   }
-                //  if((cx-44)>0){
+
                   float rathura = (dx*90)/88;
                 mangle = rathura;
-            //  }
-            //  else{
-                 //mangle = (dx/44)*-90;
-              //}
 
 
                       // Draw the scaled blobs
@@ -266,23 +263,26 @@ void readMultipleDataMsgs()
                   _nblobs = 0;
                    wait1Msec(100);
 
-          }
+
+                 }
 
             nSizeOfMessage = cCmdMessageGetSize(kQueueID);
-            if (nSizeOfMessage <= 0)
+           /* if (nSizeOfMessage <= 0)
            {
            wait1Msec(1);    // Give other tasks a chance to run
            break;           // No more message this time
-           }
+           }*/
 
           if (nSizeOfMessage > kMaxSizeOfMessage){
           nSizeOfMessage = kMaxSizeOfMessage;}
           nBTCmdRdErrorStatus = cCmdMessageRead(nRcvBuffer, nSizeOfMessage, kQueueID);
-          }
+
+		  flagged = true;
+}
+}
 
 
-       flagged = true;
-     }
+
 
      if(nRcvBuffer[3]==1){
        int mspeed = 0;
@@ -300,7 +300,7 @@ void readMultipleDataMsgs()
             // Initialise the camera
            NXTCAMinit(cam);
            servo[servo1] = 35;
-             while(nRcvBuffer[2]==0) {
+             while(true) {
               eraseDisplay();
 
               _nblobs = NXTCAMgetBlobs(cam, _blobs, _condensed);
@@ -332,13 +332,11 @@ void readMultipleDataMsgs()
                 else{*/
                     mspeed = 0;
                   }
-                //  if((cx-44)>0){
+
                   float rathura = (dx*90)/88;
                 mangle = rathura;
-            //  }
-            //  else{
-                 //mangle = (dx/44)*-90;
-              //}
+
+
 
 
                       // Draw the scaled blobs
@@ -355,32 +353,34 @@ void readMultipleDataMsgs()
                   runMotorSpeeds(mSD, mSE, mSF, mSG, mangle, mspeed);
                   _nblobs = 0;
                    wait1Msec(100);
+                 }
 
-          }
+
 
             nSizeOfMessage = cCmdMessageGetSize(kQueueID);
-            if (nSizeOfMessage <= 0)
+          /*  if (nSizeOfMessage <= 0)
            {
            wait1Msec(1);    // Give other tasks a chance to run
            break;           // No more message this time
-           }
+           }*/
 
           if (nSizeOfMessage > kMaxSizeOfMessage){
           nSizeOfMessage = kMaxSizeOfMessage;}
           nBTCmdRdErrorStatus = cCmdMessageRead(nRcvBuffer, nSizeOfMessage, kQueueID);
           }
+		  flagged = true;
+}
 
 
-       flagged = true;
-     }
-    // else{
-    // stopMotors();
-     else{
+
+
+   else{
       if (abs(oxmps-HTMCreadRelativeHeading(HTMC)) > 5)
      {
      flagged = false;
     }
   }
+
 
 
 
@@ -395,16 +395,19 @@ void readMultipleDataMsgs()
       turntocmps(cmps, oxmps);
     }
 
-  // }
 
 
 
 
 
 
-     //}
-  }
+
+
+   }
+
   return;
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

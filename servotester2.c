@@ -11,16 +11,18 @@
 
 task main()
 {
- /* nMotorEncoder[motorC] = 0;
+
+  nMotorEncoder[motorC] = 0;
   while (nMotorEncoder[motorC] > -90)
 
   {
 
-    motor[motorE] =  -100;
+    motor[motorE] =   -30;
 
   }
 
-  motor[motorD] =  -40;*/
+ motor[motorE] =   0;
+
 
   servo[servo2] = 255;
   servo[servo3] = 50;
